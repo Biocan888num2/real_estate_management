@@ -1,0 +1,62 @@
+A: Substructure
+	A10: Foundations
+	A20: Basement Construction
+
+
+B: Shell
+	B10: Superstructure
+	B20: Exterior Enclosure
+	B30: Roofing
+
+
+C: Interiors
+	C10: Interior Construction
+	C20: Stairs
+	C30: Interior Finishes
+
+
+D: Services
+	D10: Conveying
+	D20: Plumbing
+	D30: HVAC
+	D40: Fire Protection
+	D50: Electrical
+
+
+E: Equipment and Furnishings
+	E10: Equipment
+	E20: Furnishings
+
+
+F: Special Construction and Demolition
+	F10: Special Construction
+	F20: Selective Building Demolition
+
+
+G: Building Sitework
+	G10: Site Preparation
+	G20: Site Improvements
+	G30: Civil Utilities	
+
+
+Z: General Requirements and Cost Estimating
+	Z10: General Requirements
+	Z20: Cost Estimating, Cost Engineering	
+
+
+icacls "C:\WINDOWS\system32\Uniformat\widget.html" /grant rocky:F
+
+
+
+"G909003 Système de fonte de neige (un) - Système"
+
+or
+
+"G AMÉNAGEMENT D'EMPLACEMENT / G90 Autre construction / G9090 Autres systèmes sur l'emplacement / G909003 Système de fonte de neige (un) - Système"
+
+
+
+
+ 
+
+	

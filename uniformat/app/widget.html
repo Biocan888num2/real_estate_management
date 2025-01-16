@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://js.zohostatic.com/creator/widgets/version/1.0/widgetsdk-min.js"></script>
+  </head>
+  <body>
+    <!-- <div class="language-selector">
+      <button id="en">EN</button>
+      <button id="fr">FR</button>
+    </div> -->
+
+    <div class="big-box">
+      <div class="box-UNIFORMAT">
+        <div class="group-TITLE">
+          <div class="title-importance">
+            <div class="property-important lang" key="uniformat">
+              Uniformat II: Convention de nomenclature
+            </div>
+            <div class="property-important-sub lang" key="building">
+              Générateur des composantes du bâtiment
+            </div>
+          </div>
+        </div>
+        
+        <form class="form-uniformat" id="uniformatForm">
+          
+          <div class="div-wrapper">
+            <div class="property-BUILD-DATE">
+                <div class="description-BUILD"><div class="text-wrapper-3 lang" key="level1">NIVEAU 1</div></div>
+                <div class="div-wrapper-2"><div class="text-wrapper-4 lang" key="major">Groupe d'éléments majeurs</div></div>
+            </div>
+          </div>
+
+          <div class="form-radios">
+              <input type="radio" id="A" name="uniformatI" value="A" class="lang" key="A">
+              <label for="A" class="lang" key="A-label">A: INFRASTRUCTURE</label><br>
+              <input type="radio" id="B" name="uniformatI" value="B" class="lang" key="B">
+              <label for="B" class="lang" key="B-label">B: SUPERSTRUCTURE ET ENVELOPPE</label><br>
+              <input type="radio" id="C" name="uniformatI" value="C" class="lang" key="C">
+              <label for="C" class="lang" key="C-label">C: AMÉNAGEMENT INTÉRIEUR</label><br>
+              <input type="radio" id="D" name="uniformatI" value="D" class="lang" key="D">
+              <label for="D" class="lang" key="D-label">D: SERVICES</label><br>
+              <input type="radio" id="E" name="uniformatI" value="E" class="lang" key="E">
+              <label for="E" class="lang" key="E-label">E: ÉQUIPEMENT ET AMEUBLEMENT</label><br>
+              <input type="radio" id="F" name="uniformatI" value="F" class="lang" key="F">
+              <label for="F" class="lang" key="F-label">F: CONSTRUCTION SPÉCIALE ET DÉMOLITION</label><br>
+              <input type="radio" id="G" name="uniformatI" value="G" class="lang" key="G">
+              <label for="G" class="lang" key="G-label">G: AMÉNAGEMENT D`EMPLACEMENT</label>
+          </div>
+
+          <div class="div-wrapper">
+            <div class="property-BUILD-DATE">
+                <div class="description-BUILD"><div class="text-wrapper-3 lang" key="level2">NIVEAU 2</div></div>
+                <div class="div-wrapper-2"><div class="text-wrapper-4 lang" key="elements">Groupe d'éléments</div></div>
+            </div>
+          </div>
+
+          <div class="select-box-items" id="selectBox1" style="visibility: hidden;">
+            <select id="uniformatII" name="uniformatII" class="lang" key="select">
+              <option value="" disabled selected>SÉLECTIONNER</option>
+              <!-- Options will be added dynamically -->
+            </select>
+          </div> 
+          <br>
+
+          <div class="div-wrapper">
+            <div class="property-BUILD-DATE">
+                <div class="description-BUILD"><div class="text-wrapper-3 lang" key="level3">NIVEAU 3</div></div>
+                <div class="div-wrapper-2"><div class="text-wrapper-4 lang" key="individual">Élements individuels</div></div>
+            </div>
+          </div>
+
+          <div class="select-box-items" id="selectBox2" style="visibility: hidden;">
+            <select id="uniformatIIb" name="uniformatIIb" class="lang" key="select2">
+              <option value="" disabled selected>SÉLECTIONNER</option>
+              <!-- Options will be added dynamically -->
+            </select>
+          </div> 
+          <br>
+
+          <div class="div-wrapper">
+            <div class="property-BUILD-DATE">
+                <div class="description-BUILD"><div class="text-wrapper-3 lang" key="level4">NIVEAU 4</div></div>
+                <div class="div-wrapper-2"><div class="text-wrapper-4 lang" key="sub-elements">Sous-Éléments</div></div>
+            </div>
+          </div>
+
+          <div class="select-box-items" id="selectBox3" style="visibility: hidden;">
+            <select id="uniformatIIc" name="uniformatIIc" class="lang" key="select3">
+              <option value="" disabled selected>SÉLECTIONNER</option>
+              <!-- Options will be added dynamically -->
+            </select>
+          </div> 
+
+          <div class="list-BUTTON-unclicked">
+            <input class="unclicked-property lang" id="generate" key="generate" type="submit" value="GÉNÉRER">
+            <img class="logo-tiny" src="logo.png" />
+          </div>
+        </form>  
+      </div>
+      
+      <div class="sub-box-UNIFORMAT" id="result-title">
+        <div class="sub-div-wrapper">
+          <div class="sub-property-BUILD-DATE">
+            <div class="sub-description-BUILD">
+              <div class="sub-text-wrapper-3">UNIFORMAT II</div>
+            </div>
+            <div class="sub-div-wrapper-2">
+              <div class="sub-text-wrapper-4">Collection</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-radios">
+          <p id="result"></p>	
+        </div>
+        
+        <div class="list-BUTTON-unclicked" onclick="copyTextBtn()">
+          <input class="unclicked-property lang" type="submit" value="COPIER">
+          <img class="logo-tiny" src="logo.png" />
+        </div>
+      </div>
+
+    </div>  
+    <script>
+
+      //Function to add new rcord to zoho form report
+      function addData(){
+        // Initialize Zoho Creator SDK and add the record
+          ZOHO.CREATOR.init().then(function(data) {
+
+        // var newUni = document.getElementById('result').textContent;
+
+            var config = {
+              appName: 'fr-uniformat-ii-convention-de-d-nomination', // the app name is Zoho Creator
+              formName: 'Uniformat', //the form name in Zoho Creator
+              data: {
+                "data":{
+                  'U_II_fr': document.getElementById("result").textContent // in each key/value pair, the key is the link name of the field in Zoho 
+                }
+              }
+            }
+
+            ZOHO.CREATOR.API.addRecord(config).then(function(response){
+              //callback
+            });
+          });
+
+        }
+
+        //Function for 'Copy Text' button
+        function copyTextBtn() {
+          /* Get the text field */
+          var copyText = document.getElementById("result");
+
+          /* Select the text field */
+          var range = document.createRange();
+          range.selectNode(copyText);
+          window.getSelection().removeAllRanges(); // clear current selection
+          window.getSelection().addRange(range); // to select text
+
+          /* Copy the text inside the text field */
+          document.execCommand("copy");
+
+          /* Alert the copied text */
+          alert("Vous avez copié le texte: " + copyText.innerHTML);
+        }
+
+
+      // Define the Uniformat II Elements Group options for each Uniformat II Major Elements Group option
+      var options = {
+        en: {
+          "A": ["A10: Foundations", "A20: Basement Construction"],
+          "B": ["B10: Superstructure", "B20: Exterior Enclosure", "B30: Roofing"],
+          "C": ["C10: Interior Construction", "C20: Stairs", "C30: Interior Finishes"],
+          "D": ["D10: Conveying", "D20: Plumbing", "D30: HVAC", "D40: Fire Protection", "D50: Electrical"],
+          "E": ["E10: Equipment", "E20: Furnishings"],
+          "F": ["F10: Special Construction", "F20: Selective Building Demolition"],
+          "G": ["G10: Site Preparation", "G20: Site Improvements", "G30: Civil Utilities", "G40: Electrical Utility", "G90: Other Construction"]
+        },
+
+        fr: {
+          "A": ["A10: Fondations", "A20: Construction de sous-sol"],
+          "B": ["B10: Superstructure", "B20: Enveloppe extérieure", "B30: Toiture"],
+          "C": ["C10: Construction intérieure", "C20: Escaliers", "C30: Finitions intérieures"],
+          "D": ["D10: Transport", "D20: Plomberie", "D30: HVAC", "D40: Protection contre l'incendie", "D50: Électricité"],
+          "E": ["E10: Équipement", "E20: Mobilier"],
+          "F": ["F10: Construction spéciale", "F20: Démolition sélective de bâtiments"],
+          "G": ["G10: Préparation du site", "G20: Améliorations du site", "G30: Services publics civils", "G40: Service d'électricité", "G90: Autre Construction"]
+        }
+      };
+
+       // Define the Uniformat II Individual Elements options for each Uniformat II Elements Group option
+       var options2 = {
+        en: {
+          "A10: Foundations": ["A1010 Standard Foundations", "A1020 Special Foundations", "A1030 Slab on Grade"],
+          "A20: Basement Construction": ["A2010 Basement Excavation", "A2020 Basement Walls"],
+          "B10: Superstructure": ["B1010 Floor Construction", "B1020 Roof Construction"],
+          "B20: Exterior Enclosure": ["B2010 Exterior Walls", "B2020 Exterior Windows", "B2030 Exterior Doors"],
+          "B30: Roofing": ["B3010 Roof Coverings", "B3020 Roof Openings"],
+          "C10: Interior Construction": ["C1010 Partitions", "C1020 Interior Doors", "C1030 Fittings"],
+          "C20: Stairs": ["C2010 Stair Construction", "C2020 Stair Finishes"],
+          "C30: Interior Finishes": ["C3010 Wall Finishes", "C3020 Floor Finishes", "C3030 Ceiling Finishes"],
+          "D10: Conveying": ["D1010 Elevators & Lifts", "D1020 Escalators & Moving Walks", "D1090 Other Conveying Systems"],
+          "D20: Plumbing": ["D2010 Plumbing Fixtures", "D2020 Domestic Water Distribution", "D2030 Sanitary Waste", " D2040 Rain Water Drainage", "D2090 Other Plumbing Systems"],
+          "D30: HVAC": ["D3010 Energy Supply", "D3020 Heat Generating Systems", "D3030 Cooling Generating Systems", "D3040 Distribution Systems", "D3050 Terminal & Package Units", "D3060 Controls & Instrumentation", "D3070 Systems Testing & Balancing", "D3090 Other HVAC Systems & Equipment"],
+          "D40: Fire Protection": ["D4010 Sprinklers", "D4020 Standpipes", "D4030 Fire Protection Specialties", "D4090 Other Fire Protection Systems"],
+          "D50: Electrical": ["D5010 Electrical Service & Distribution", "D5020 Lighting & Branch Wiring", "D5030 Communications & Security", "D5090 Other Electrical Systems"],
+          "E10: Equipment": ["E1010 Commercial Equipment", "E1020 Institutional Equipment", "E1030 Vehicular Equipment", "E1090 Other Equipment"],
+          "E20: Furnishings": ["E2010 Fixed Furnishings", "E2020 Movable Furnishings"],
+          "F10: Special Construction": ["F1010 Special Structures", "F1020 Integrated Construction", "F1030 Special Construction Systems", "F1040 Special Facilities", "F1050 Special Controls & Instrumentation"],
+          "F20: Selective Building Demolition": ["F2010 Building Elements Demolition", "F2020 Hazardous Components Abatement"],
+          "G10: Site Preparation": ["G1010 Site Clearing", "G1020 Site Demolition & Relocation", "G1030 Site Earthwork", "G1040 Hazardous Waste Remediation"],
+          "G20: Site Improvements": ["G2010 Roadways", "G2020 Parking Lots", "G2030 Pedestrian Paving", "G2040 Site Development", "G2050 Landscaping"],
+          "G30: Civil Utilities": ["G3010 Water Supply", "G3020 Sanitary Sewer", "G3030 Storm Sewer", "G3040 Heating Distribution", "G3050 Cooling Distribution", "G3060 Fuel Distribution", "G3090 Other Site Mechanical Utilities"],
+          "G40: Electrical Utility": ["G4010 Electrical Distribution", "G4020 Site Lighting", "G4030 Site Communication & Security", "G4090 Other Site Electrical Utilities"],
+          "G90: Other Construction": ["G9010 Service and Pedestrian Tunnels", "G9090 Other Site Systems & Equipment"]
+
+        },
+
+        fr: {
+          "A10: Fondations": ["A1010 Fondations standards", "A1020 Fondations Spéciales", "A1030 Dalle inférieure"],
+          "A20: Construction de sous-sol": ["A2010 Excavation de sous-sol", "A2020 Murs de sous-sol"],
+          "B10: Superstructure": ["B1010 Construction de plancher", "B1020 Construction de toiture"],
+          "B20: Enveloppe extérieure": ["B2010 Murs extérieurs", "B2020 Fenêtre extérieures", "B2030 Portes extérieures"],
+          "B30: Toiture": ["B3010 Couverture", "B3020 Ouvertures de toît"],
+          "C10: Construction intérieure": ["C1010 Cloisons", "C1020 Portes intérieures", "C1030 Accessoires intégrés"],
+          "C20: Escaliers": ["C2010 Construction d`escaliers", "C2020 Finitions d`escaliers"],
+          "C30: Finitions intérieures": ["C3010 Finitions de mur", "C3020 Finitions de plancher", "C3030 Finitions de plafond"],
+          "D10: Transport": ["D1010 Ascenseurs et monte-charge", "D1020 Escaliers mécaniques et trottoirs roulants", "D1090 Autres systèmes transporteurs"],
+          "D20: Plomberie": ["D2010 Appareils de plomberie", "D2020 Réseau d`eau domestique", "D2030 Réseau de drainage sanitaire", "D2040 Réseau de drainage pluvial", "D2090 Autre système de plomberie"],
+          "D30: HVAC": ["D3010 Sources d`énergie", "D3020 Système de production de chaleur", "D3030 Système de production de froid", "D3040 Distribution de CVCA", "D3050 Unités autonomes ou monoblocs", "D3060 Régulation et instrumentation", "D3070 Essai et réglage des systèmes", "D3090 Autres systèmes ou équipements de CVCA"],
+          "D40: Protection contre l'incendie": ["D4010 Gicleurs", "D4020 Canalisations et robinets d'incendie", "D4030 Accessoires de protection incendie", "D4090 Protection incendie"],
+          "D50: Électricité": ["D5010 Service et distribution électrique", "D5020 Éclairage et distribution secondaire", "D5030 Communication et sécurité", "D5090 Autres systèmes électriques"],
+          "E10: Équipement": ["E1010 Équipement commercial", "E1020 Équipement institutionnel", "E1030 Équipement pour véhicules", "E1090 Autres équipements"],
+          "E20: Mobilier": ["E2010 Ameublement et décorations fixes", "E2020 Ameublement et décorations mobiles"],
+          "F10: Construction spéciale": ["F1010 Structure spéciale", "F1020 Sous-ensembles intégrés", "F1030 Système spécial de construction", "F1040 Installation spéciale", "F1050 Instrumentation et régulations spéciales"],
+          "F20: Démolition sélective de bâtiments": ["F2010 Démantèlement d`éléments de bâtiment", "F2020 Élimination de produits dangereux"],
+          "G10: Préparation du site": ["G1010 Déblaiement d`emplacement", "G1020 Déplacements et démolition sur l`emplacement", "G1030 Terrassement d`emplacement", "G1040 Décontamination d`emplacement"],
+          "G20: Améliorations du site": ["G2010 Chaussée", "G2020 Aire de stationnement", "G2030 Surface piétonnière", "G2040 Aménagement du terrain", "G2050 Aménagement paysager"],
+          "G30: Services publics civils": ["G3010 Alimentation en eau sur l`emplacement", "G3020 Égout sanitaire", "G3030 Égout pluvial", "G3040 Distribution de chauffage", "G3050 Distribution de refroidissement", "G3060 Distribution de combustible", "G3090 Autres services de mécanique sur l`emplacement"],
+          "G40: Service d'électricité": ["G4010 Distribution d`électricité sur l`emplacement", "G4020 Éclairage d`emplacement", "G4030 Communication et sécurité sur l`emplacement", "G4090 Autres services d`électricité sur l`emplacement"],
+          "G90: Autre Construction": ["G9010 Tunnels piétons et de services sur l`emplacement", "G9090 Autres systèmes sur l`emplacement"]
+
+        }
+      };
+
+       // Define the Uniformat II Sub Elements options for each Uniformat II Individual Elements Group option
+       var options3 = {
+        en: {
+          "A1010 Standard Foundations": [
+              "A101001 Wall Foundations", 
+              "A101002 Column Foundations & Pile Caps", 
+              "A101003 Perimeter Drainage & Insulation"
+          ],
+
+          "A1020 Special Foundations": [
+              "A102001 Pile Foundations", 
+              "A102002 Grade Beams", 
+              "A102003 Caissons", 
+              "A102004 Underprinting", 
+              "A102005 Dewatering", 
+              "A102006 Raft Foundations", 
+              "A102007 Pressure Injected Grouting", 
+              "A102009 Other Special Conditions"
+          ],
+
+          "A1030 Slab on Grade": [
+              "A103001 Standard Slab on Grade", 
+              "A103002 Structural Slab on Grade", 
+              "A103003 Inclined Slab on Grade", 
+              "A103004 Trenches, Pits & Bases", 
+              "A103005 Under-Slab Drainage & Insulation"
+          ],
+
+          "A2010 Basement Excavation": [
+            "A201001 Excavation for Basements", 
+            "A201002 Structure Back Fill & Compaction", 
+            "A201003 Shoring"
+          ],
+
+          "A2020 Basement Walls": [
+              "A202001 Basement Wall Construction", 
+              "A202002 Moisture Protection", 
+              "A202003 Basement Wall Insulation", 
+              "A202004 Interior Skin"
+          ],
+
+          "B1010 Floor Construction": [
+              "B101001 Suspended Basement Floors Construction", 
+              "B101002 Upper Floors Construction", 
+              "B101003 Balcony Floors Construction", 
+              "B101004 Ramps", 
+              "B101005 Exterior Stairs and Fire Escapes", 
+              "B101006 Floor Raceway Systems", 
+              "B101009 Other Floor Construction"
+          ],
+
+          "B1020 Roof Construction": [
+              "B102001 Flat Roof Construction", 
+              "B102002 Pitched Roof Construction", 
+              "B102003 Canopies", 
+              "B102009 Other Roof Systems"
+          ],
+
+          "B2010 Exterior Walls": [
+              "B201001 Exterior Wall Construction", 
+              "B201002 Parapets", 
+              "B201003 Exterior Louvers, Screens, and Fencing", 
+              "B201004 Exterior Sun Control Devices", 
+              "B201005 Balcony Walls & Handrails", 
+              "B201006 Exterior Soffits"
+          ],
+
+          "B2020 Exterior Windows": [
+              "B202001 Windows", 
+              "B202002 Curtain Walls", 
+              "B202003 Storefronts"
+          ],
+
+          "B2030 Exterior Doors": [
+              "B203001 Glazed Doors & Entrances", 
+              "B203002 Solid Exterior Doors", 
+              "B203003 Revolving Doors", 
+              "B203004 Overhead Doors", 
+              "B203009 Other Doors & Entrances"
+          ],
+
+          "B3010 Roof Coverings": [
+              "B301001 Roof Finishes", 
+              "B301002 Traffic Toppings & Paving Membranes", 
+              "B301003 Roof Insulation & Fill", 
+              "B301004 Flashings & Trim", 
+              "B301005 Roof Eaves and Soffits", 
+              "B301006 Gutters and Downspouts"
+          ],
+
+          "B3020 Roof Openings": [
+              "B302001 Glazed Roof Openings", 
+              "B302002 Roof Hatches", 
+              "B302003 Gravity Roof Ventilators"
+          ],
+
+          "C1010 Partitions": [
+              "C101001 Fixed Partitions", 
+              "C101002 Demountable Partitions", 
+              "C101003 Retractable Partitions", 
+              "C101004 Site Built Toilet Partitions", 
+              "C101005 Site Built Compartments Cubicles", 
+              "C101006 Interior Balustrades and Screens", 
+              "C101007 Interior Windows & Storefronts"
+          ],
+
+          "C1020 Interior Doors": [
+              "C102001 Interior Doors", 
+              "C102002 Interior Door Frames", 
+              "C102003 Interior Door Hardware", 
+              "C102004 Interior Door Wall Opening Elements", 
+              "C102005 Interior Door Sidelights & Transoms", 
+              "C102006 Interior Hatches & Access Doors", 
+              "C102007 Door Painting & Decoration"
+          ],
+
+          "C1030 Fittings": [
+              "C103001 Fabricated Toilet Partitions", 
+              "C103002 Fabricated Compartments & Cubicles", 
+              "C103003 Storage Shelving and Lockers", 
+              "C103004 Ornamental Metals and Handrails", 
+              "C103005 Identifying Devices", 
+              "C103006 Closet Specialties", 
+              "C103007 General Fittings & Misc. Metals"
+          ],
+
+          "C2010 Stair Construction": [
+              "C201001 Regular Stairs", 
+              "C201002 Curved Stairs", 
+              "C201003 Spiral Stairs", 
+              "C201004 Stair Handrails and Balustrades"
+          ],
+
+          "C2020 Stair Finishes": [
+              "C202001 Stair, Tread, and Landing Finishes", 
+              "C202002 Stair Soffit Finishes", 
+              "C202003 Stair Handrail & Balustrade Finishes"
+          ],
+
+          "C3010 Wall Finishes": [
+              "C301001 Wall Finishes to Inside Exterior Walls", 
+              "C301002 Wall Finishes to Interior Walls", 
+              "C301003 Column Finishes"
+          ],
+
+          "C3020 Floor Finishes": [
+              "C302001 Floor Toppings", 
+              "C302002 Traffic Membranes", 
+              "C302003 Hardeners and Sealers", 
+              "C302004 Flooring", 
+              "C302005 Carpeting", 
+              "C302006 Bases, Curbs and Trim", 
+              "C302007 Access Pedastal Flooring"
+          ],
+
+          "C3030 Ceiling Finishes": [
+              "C303001 Ceiling Finishes", 
+              "C303002 Suspended Ceilings", 
+              "C303003 Other Ceilings"
+          ],
+
+          "D1010 Elevators & Lifts": [
+              "D101001 Passenger Elevators", 
+              "D101002 Freight Elevators", 
+              "D101003 Lifts"
+          ],
+
+          "D1020 Escalators & Moving Walks": [
+              "D102001 Escalators", 
+              "D102002 Moving Walks"
+          ],
+
+          "D1090 Other Conveying Systems": [
+              "D109001 Dumbwaiters", 
+              "D109002 Pneumatic Tube Systems", 
+              "D109003 Hoists & Cranes", "D1094 Conveyors", 
+              "D109005 Chutes", "D1096 Turntables", 
+              "D109007 Baggage Handling & Loading Systems", 
+              "D109008 Transportation Systems"
+          ],
+
+          "D2010 Plumbing Fixtures": [
+              "D201001 Water Closets", 
+              "D201002 Urinals", 
+              "D201003 Lavatories", 
+              "D201004 Sinks", 
+              "D201005 Bathtubs", 
+              "D201006 Wash Fountains", 
+              "D201007 Showers", 
+              "D201008 Drinking Fountains and Coolers", 
+              "D201009 Bidets and Other Plumbing Fixtures"
+          ],
+
+          "D2020 Domestic Water Distribution": [
+              "D202001 Cold Water Service", 
+              "D202002 Hot Water Service", 
+              "D202003 Domestic Water Supply Equipment"
+          ],
+
+          "D2030 Sanitary Waste": [
+              "D203001 Waste Piping", 
+              "D203002 Vent Piping", 
+              "D203003 Floor Drains", 
+              "D203004 Sanitary Waste Equipment", 
+              "D203005 Pipe Insulation"
+          ],
+
+          "D2040 Rain Water Drainage": [
+              "D204001 Pipe & Fittings", 
+              "D204002 Roof Drains", 
+              "D204003 Rainwater Drainage Equipment", 
+              "D204004 Pipe Insulation"
+          ],
+
+          "D2090 Other Plumbing Systems": [
+              "D209001 Gas Distribution", 
+              "D209002 Acid Waste Systems", 
+              "D209003 Interceptors", 
+              "D209004 Pool Piping and Equipment", 
+              "D209005 Decorative Fountain Piping Devices", 
+              "D209009 Other Piping Systems"
+          ],
+
+          "D3010 Energy Supply": [
+              "D301001 Oil Supply System", 
+              "D301002 Gas Supply System", 
+              "D301003 Coal Supply System", 
+              "D301004 Steam Supply System", 
+              "D301005 Hot Water Supply System", 
+              "D301006 Solar Energy System", 
+              "D301007 Wind Energy System"
+          ],
+
+          "D3020 Heat Generating Systems": [
+              "D302001 Boilers", 
+              "D302002 Boiler Room Piping & Specialties", 
+              "D302003 Auxiliary Equipment", 
+              "D302004 Insulation"
+          ],
+
+          "D3030 Cooling Generating Systems": [
+              "D303001 Chilled Water Systems", 
+              "D303002 Direct Expansion Systems"
+          ],
+
+          "D3040 Distribution Systems": [
+              "D304001 Air Distribution Systems", 
+              "D304002 Exhaust Ventilation Systems", 
+              "D304003 Steam Distribution Systems", 
+              "D304004 Hot Water Distribution", 
+              "D304005 Chilled Water Distribution", 
+              "D304006 Change-over Distribution System", 
+              "D304007 Glycol Distribution Systems"
+          ],
+
+          "D3050 Terminal & Package Units": [
+              "D305001 Terminal Self-Contained Units", 
+              "D305002 Package Units"
+          ],
+
+          "D3060 Controls & Instrumentation": [
+              "D306001 Heating Generating Systems", 
+              "D306002 Cooling Generating Systems", 
+              "D306003 Heating/Cooling Air Handling Units", 
+              "D306004 Exhaust & Ventilating Systems", 
+              "D306005 Hoods and Exhaust Systems", 
+              "D306006 Terminal Devices", 
+              "D306007 Energy Monitoring & Control", 
+              "D306008 Building Automation Systems", 
+              "D306009 Other Controls & Instrumentation"
+          ],
+
+          "D3070 Systems Testing & Balancing": [
+              "D307001 Piping System Testing & Balancing", 
+              "D307002 Air Systems Testing & Balancing", 
+              "D307003 HVAC Commissioning", 
+              "D307009 Other Systems Testing and Balancing"
+          ],
+
+          "D3090 Other HVAC Systems & Equipment": [
+              "D3091 Special Cooling Systems & Devices", 
+              "D3092 Special Humidity Control", 
+              "D3093 Dust & Fume Collectors", 
+              "D3094 Air Curtains", 
+              "D3095 Air Purifiers", 
+              "D3096 Paint Spray Booth Ventilation", 
+              "D3097 General Construction Items (HVAC)"
+          ],
+
+          "D4010 Sprinklers": [
+              "D401001 Sprinkler Water Supply", 
+              "D401002 Sprinkler Pumping Equipment", 
+              "D401003 Dry Sprinkler System"
+          ],
+
+          "D4020 Standpipes": [
+              "D402001 Standpipe Water Supply", 
+              "D402002 Pumping Equipment", 
+              "D402003 Standpipe Equipment", 
+              "D402004 Fire Hose Equipment"
+          ],
+
+          "D4030 Fire Protection Specialties": [
+              "D403001 Fire Extinguishers", 
+              "D403002 Fire Extinguisher Cabinets"
+          ],
+
+          "D4090 Other Fire Protection Systems": [
+              "D409001 Carbon Dioxide Systems", 
+              "D409002 Foam Generating Equipment", 
+              "D409003 Clean Agent Systems", 
+              "D409004 Dry Chemical System", 
+              "D409005 Hood & Duct Fire Protection"
+          ],
+
+          "D5010 Electrical Service & Distribution": [
+              "D501001 High Tension Service & Dist.", 
+              "D501002 Low Tension Service & Dist."
+          ],
+
+          "D5020 Lighting & Branch Wiring": [
+              "D502001 Branch Wiring Devices", 
+              "D502002 Lighting Equipment"
+          ],
+
+          "D5030 Communications & Security": [
+              "D503001 Public Address & Music Systems", 
+              "D503002 Intercommunication & Paging System", 
+              "D503003 Telephone Systems", 
+              "D503004 Call Systems", 
+              "D503005 Television Systems", 
+              "D503006 Clock and Program Systems", 
+              "D503007 Fire Alarm Systems", 
+              "D503008 Security and Detection Systems", 
+              "D503009 Local Area Networks"
+          ],
+
+          "D5090 Other Electrical System": [
+              "D509001 Grounding Systems", 
+              "D509002 Emergency Light & Power Systems", 
+              "D509003 Floor Raceway Systems", 
+              "D509004 Other Special Systems & Devices", 
+              "D509005 General Construction Items (Elect.)"
+          ],
+
+          "E1010 Commercial Equipment": [
+              "E101001 Security & Vault Equipment", 
+              "E101002 Teller and Service Equipment", 
+              "E101003 Registration Equipment", 
+              "E101004 Checkroom Equipment", 
+              "E101005 Mercantile Equipment", 
+              "E101006 Laundry & Dry Cleaning Equipment", 
+              "E101007 Vending Equipment", 
+              "E101008 Office Equipment"
+          ],
+
+          "E1020 Institutional Equipment": [
+              "E102001 Ecclesiastical Equipment", 
+              "E102002 Library Equipment", 
+              "E102003 Theater & Stage Equipment", 
+              "E102004 Instrumental Equipment", 
+              "E102005 Audio-visual Equipment", 
+              "E102006 Detention Equipment", 
+              "E102007 Laboratory Equipment", 
+              "E102008 Medical Equipment", 
+              "E102009 Other Institutional Equipment"
+          ],
+
+          "E1030 Vehicular Equipment": [
+              "E103001 Vehicular Service Equipment", 
+              "E1030002 Parking Control Equipment", 
+              "E103003 Loading Dock Equipment", 
+              "E103009 Other Vehicular Equipment"
+          ],
+
+          "E1090 Other Equipment": [
+              "E109001 Maintenance Equipment", 
+              "E109002 Solid Waste Handling Equipment", 
+              "E109003 Food Service Equipment", 
+              "E109004 Residential Equipment", 
+              "E109005 Unit Kitchens", 
+              "E109007 Window Washing Equipment", 
+              "E109009 Other Equipment"
+          ],
+
+          "E2010 Fixed Furnishings": [
+              "E201001 Fixed Artwork", 
+              "E201002 Fixed Casework", 
+              "E201003 Blinds and Other Window Treatment", 
+              "E201004 Fixed Floor Grilles and Mats", 
+              "E201005 Fixed Multiple Seating", 
+              "E201006 Fixed Interior Landscaping"
+          ],
+
+          "E2020 Movable Furnishings": [
+              "E202001 Movable Artwork", 
+              "E202002 Furniture & Accessories", 
+              "E202003 Movable Rugs and Mats", 
+              "E202004 Movable Interior Landscaping"
+          ],
+
+          "F1010 Special Structures": [
+              "F101001 Air Supported Structures", 
+              "F101002 Pre-engineered Structures", 
+              "F101003 Other Special Structures"
+          ],
+
+          "F1020 Integrated Construction": [
+              "F102001 Integrated Assemblies", 
+              "F102002 Special Purpose Rooms", 
+              "F102003 Other Integrated Construction"
+          ],
+
+          "F1030 Special Construction Systems": [
+              "F103001 Sound, Vibration & Seismic Const.", 
+              "F103002 Radiation Protection", 
+              "F103003 Special Security Systems", 
+              "F103004 Vaults", 
+              "F103009 Other Special Construction Systems"
+          ],
+
+          "F1040 Special Facilities": [
+              "F104001 Aquatic Facilities", 
+              "F104002 Ice Rinks", 
+              "F104003 Site Constructed Incinerators", 
+              "F104004 Kennels & Animal Shelters", 
+              "F104005 Liquid & Gas Storage Tanks", 
+              "F104009 Other Special Facilities"
+          ],
+
+          "F1050 Special Controls & Instrumentation": [
+              "F105001 Recording Instrumentation", 
+              "F105002 Building Automation System", 
+              "F105009 Other Special Controls & Instrumentation"
+          ],
+
+          "F2010 Building Elements Demolition": [
+              "F201001 Building Interior Demolition", 
+              "F201002 Building Exterior Demolition"
+          ],
+
+          "F2020 Hazardous Components Abatement": [
+              "F202001 Removal of Hazardous Components", 
+              "F202002 Encapsulation of Hazardous Components"
+          ],
+
+          "G1010 Site Clearing": [
+              "G101001 Clearing & Grubbing", 
+              "G101002 Tree Removal & Thinning"
+          ],
+
+          "G1020 Site Demolition & Relocation": [
+              "G102001 Building Demolition", 
+              "G102002 Demolition of Site Components", 
+              "G102003 Relocation of Building & Utilities", 
+              "G102004 Utilities Relocation"
+          ],
+
+          "G1030 Site Earthwork": [
+              "G103001 Site Grading Excavation", 
+              "G103002 Borrow Fill", 
+              "G103003 Soil Stabilization & Treatment", 
+              "G103004 Site Dewatering", 
+              "G103005 Site Shoring", 
+              "G103006 Embankments", 
+              "G103007 Erosion Control"
+          ],
+
+          "G1040 Hazardous Waste Remediation": [
+              "G104001 Removal of Contaminated Soil", 
+              "G104002 Soil Restoration & Treatment"
+          ],
+
+          "G2010 Roadways": [
+              "G201001 Bases and Sub-Bases", 
+              "G201002 Paving & Surfacing", 
+              "G201003 Curbs Gutters & Drains", 
+              "G201004 Guardrails and Barriers", 
+              "G201005 Painted Lines", 
+              "G201006 Markings & Signage", 
+              "G201007 Vehicular Bridges"
+          ],
+
+          "G2020 Parking Lots": [
+              "G202001 Bases and Sub-Bases", 
+              "G202002 Paving & Surfacing", 
+              "G202003 Curbs, Rails & Barriers", 
+              "G202004 Parking Booths & Equipment", 
+              "G202005 Markings & Signage"
+          ],
+
+          "G2030 Pedestrian Paving": [
+              "G203001 Paving & Surfacing", 
+              "G203002 Edging", 
+              "G203003 Exterior Steps", 
+              "G203004 Pedestrian Bridges"
+          ],
+
+          "G2040 Site Development": [
+              "G204001 Fences & Gates", 
+              "G204002 Retaining Walls", 
+              "G204003 Terrace & Perimeter Walls", 
+              "G204004 Signage", 
+              "G204005 Site Furnishings", 
+              "G204006 Fountains, Pools, & Watercourses", 
+              "G204007 Playing Fields", 
+              "G204008 Flagpoles", 
+              "G204009 Miscellaneous Structures"
+          ],
+
+          "G2050 Landscaping": [
+              "G205001 Fine Grading & Soil Preparation", 
+              "G205002 Erosion Control Measures", 
+              "G205003 Top Soil and Planting Beds", 
+              "G205004 Seeding and Sodding", 
+              "G205005 Planting", 
+              "G205006 Planters", 
+              "G205007 Irrigation Systems", 
+              "G205009 Other Landscape Features"
+          ],
+
+          "G3010 Water Supply": [
+              "G301001 Potable Water Distribution (m: Length of System)", 
+              "G301002 Non Potable Water Distribution (m: Length of System)",
+              "G301003 Potable Water Storage	(liters:	Capacity)",
+              "G301004 Non Potable Water Storage (liters:	Capacity)",
+              "G301005 Well Systems (un: Number of Systems)", 
+              "G301006 Fire Protection Distribution (m: Length of system)",
+              "G301007 Fire Protection Storage	(liters:	Capacity)",
+              "G301008 Pumping Stations (L/s:	Station Capacity)", 
+              "G301009 Package Water Treatment Plants (L/s:	Station Capacity)",
+              "G301099 Other Water Supply Systems	(xx)"
+
+          ],
+
+          "G3020 Sanitary Sewer": [
+              "G302001 Piping", 
+              "G302002 Manholes & Cleanouts", 
+              "G302003 Septic Disposal Systems", 
+              "G302004 Lift Stations", 
+              "G302005 Packaged Water Waste Treatment Plants", 
+              "G302006 Septic Tanks", 
+              "G302007 Drain Fields"
+          ],
+
+          "G3030 Storm Sewer": [
+              "G303001 Piping", 
+              "G303002 Manholes", 
+              "G303003 Headwalls & Catch Basins", 
+              "G303004 Lift Stations", 
+              "G303005 Retention Ponds", 
+              "G303006 Ditches & Culverts"
+          ],
+
+          "G3040 Heating Distribution": [
+              "G304001 Steam Supply", 
+              "G304002 Condensate Return",
+              "G304003 Hot Water Supply System", 
+              "G304004 Pumping Stations"
+          ],
+
+          "G3050 Cooling Distribution": [
+              "G305001 Chilled Water Piping", 
+              "G305002 Wells for Cooling/Heating", 
+              "G305003 Pumping Stations", 
+              "G305004 Cooling Towers on Site"
+          ],
+
+          "G3060 Fuel Distribution": [
+              "G306001 Fuel Piping", 
+              "G306002 Fuel Equipment", 
+              "G306003 Fuel Storage Tanks", 
+              "G306004 Fuel Dispensing Stations"
+          ],
+
+          "G3090 Other Site Mechanical Utilities": [
+              "G309001 Industrial Waste Systems", 
+              "G309002 POL (Petroleum Oil & Lubricants) Distribution Systems"
+          ],
+
+          "G4010 Electrical Distribution": [
+              "G401001 Substations", 
+              "G401002 Overhead Power Distribution", 
+              "G401003 Underground Power Distribution"
+          ],
+
+          "G4020 Site Lighting": [
+              "G402001 Fixtures & Transformers", 
+              "G402002 Poles", 
+              "G4023 Wiring Conduits & Ductbanks", 
+              "G402004 Site Lighting Controls"
+          ],
+
+          "G4030 Site Communication & Security": [
+              "G403001 Site Communications Systems", 
+              "G403002 Site Security & Alarm Systems"
+          ],
+
+          "G4090 Other Site Electrical Utilities": [
+              "G409001 Cathodic Protection", 
+              "G409002 Site Emergency Power Generation"
+          ],
+
+          "G9010 Service & Pedestrian Tunnels": [
+              "G901001 Service Tunnels", 
+              "G901002 Trench Boxes", 
+              "G901003 Pedestrian Tunnels"
+          ],
+
+          "G9090 Other Site Systems": [
+              "G909001 Snow Melting Systems"
+          ]
+
+        },
+
+        fr: {
+          "A1010 Fondations standards": [
+              "A101001 Murs de fondation (m: Longueur mur)", 
+              "A101002 Colonnes de fondation (un: Nombre/ unité)", 
+              "A101003 Drainage au périmètre (m: Longueur en niv.5, -m² de drainage en niv.4)", 
+              "A101004 Tête de pieux (un: Nombre/ unité)", 
+              "A101099 Autres fondations standards (xx: Inclus puits d'ascenseur)"
+          ],
+
+          "A1020 Fondations Spéciales": [
+              "A102001 Pieux (m: Nombre)", 
+              "A102002 Reprise en sous-oeuvre (m: Longueur de sous-oeuvre)", 
+              "A102003 Caissons (m²: Superficie au so)", 
+              "A102004 Soutènement des sols (m²: Superficie de soutènement)", 
+              "A102005 Assèchement des fouilles/drainage (m: Longueur en niv.5, -m² de drainage em niv.4)", 
+              "A102006 Radiers (m²: Superficie de radiers)", 
+              "A102007 Stabilisation de fondation par injection (m²: Superficie au so)", 
+              "A102099 Autres conditions spéciales (xx)"
+          ],
+
+          "A1030 Dalle inférieure": [
+              "A103001 Dalle sur sol standard	(m²:	Superficie de la dalle)", 
+              "A103002 Dalle sur sol structurale	(m²:	Superficie de la dalle)", 
+              "A103003 Dalle sur sol inclinée	(m²:	Superficie de la dalle)", 
+              "A103004 Tranchées, Fosses et bases	(m et un:	Longueur de tranchée ou Nombre)", 
+              "A103005 Drainage sous-dalle	(m:	Longueur de drainage)", 
+              "A103006 Sur-excavation et préparation sous dalle	(m²: Superficie de la dalle)", 
+              "A103099 Autres dalles sur sol (xx)"
+          ],
+
+          "A2010 Excavation de sous-sol": [
+              "A201001 Excavation du sous-sol	(m³:	Volume d`excavation supplémentaire à A1010)", 
+              "A201002 Remblayage et compactage	(m³:	Volume d`excavation supplémentaire à A1010)", 
+              "A201003 Étayage	(m²:	Superficie de contact)", 
+              "A201099 Autres excavation de sous-sol (xx)"
+          ],
+
+          "A2020 Murs de sous-sol": [
+              "A202001 Murs de sous-sol	(m²:	Superficie de mur)", 
+              "A202002 Protection contre l`humidité	(m²:	Superficie de mur protégé)", 
+              "A202003 Isolation de murs de sous-sol	(m²:	Superficie de mur de contact)", 
+              "A202004 Revêtement intérieur (m²: Superficie)", 
+              "A202099 Autres murs de sous-sol	(xx)"
+          ],
+
+          "B1010 Construction de plancher": [
+              "B101001 Plancher sur pontage et dalle	(m²:	Superficie de planchers)", 
+              "B101002 Planchers des étages supérieurs (m²:	Superficie de planchers)", 
+              "B101003 Planchers de balcon	(m²:	Superficie de balcons)", 
+              "B101004 Rampes (m²:	Superficie de rampe)", 
+              "B101005 Escaliers extérieurs, sorties d`urgences	(m²:	Superficie)", 
+              "B101006 Systèmes de caniveaux de planche	(m²:	Superficie de caniveaux)", 
+              "B101007 Plancher inclinés et à palier	(m²:	Superficie de planchers)", 
+              "B101099 Autres types de planchers	(xx)"
+          ],
+
+          "B1020 Construction de toiture": [
+              "B102001 Toitures plates	(m²:	Superficie de toiture horizontale)", 
+              "B102002 Toitures en pentes	(m:²	Superficie de toiture horizontale)", 
+              "B102003 Marquises	(m²:	Superficie de toiture horizontale)", 
+              "B102099 Autres constructions de toitures	(xx)"
+          ],
+
+          "B2010 Murs extérieurs": [
+              "B201001 Ossature de murs extérieurs	(m²:	Superficie de murs ext.)", 
+              "B201002 Parapets	(m:	Longueur de parape)", 
+              "B201003 Persiennes et Grillages extérieurs	(m²:	Superficie de grillage et persiennes)", 
+              "B201004 Dispositifs de contrôle du soleil	(m²:	Superficie de contrôle du soleil)", 
+              "B201005 Murets de balcon et garde-corps	(m:	Longueur muret et main-courante)", 
+              "B201006 Soffites	(m²:	Superficie de soffites)", 
+              "B201007 Mur/Écran	(m:	Longueur de mur / écran)", 
+              "B201008 Finition extérieure - tous les parements	(m²:	Superficie de finition)", 
+              "B201009 Joints de contrôle	(m:	Longueur de joints à sceller)", 
+              "B201010 Support structural pour pare-vapeur	(m²:	Superficie)", 
+              "B201011 Étanchéité, isolation et pare vapeur	(m²:	Superficie de murs ext.)", 
+              "B201099 (Autres types de murs extérieurs	xx)"
+          ],
+
+          "B2020 Fenêtre extérieures": [
+              "B202001 Fenestrations	(m²:	Superficie de fenêtres)", 
+              "B202002 Murs rideaux	(m²:	Superficie de murs-rideaux)", 
+              "B202003 Entrées d`aluminium/devanture	(m²:	Superficie de devantures)", 
+              "B202004 Vitrages extérieurs	(m²:	Superficie de vitrage)", 
+              "B202005 Supports structuraux - mur rideau	(m²:	Superficie de vitrage)", 
+              "B202099 Autres types de fenestration extérieure	(xx)"
+          ],
+
+          "B2030 Portes extérieures": [
+              "B203001 Portes vitrées et vestibules	(un:	Nombre de portes)", 
+              "B203002 Portes solides	(un:	Nombre de portes)", 
+              "B203003 Portes tournantes	(un:	Nombre de portes)", 
+              "B203004 Portes levantes et à enroulement	(m²:	Superficie de porte)", 
+              "B203005 Portes blindées	(m²:	Superficie de porte)", 
+              "B203006 Barrières extérieures	(m²:	Superficie de barrière)", 
+              "B203007 Quincailleries spéciales pour portes extérieures	(un:	Nombre de portes)", 
+              "B203099 Autres types de portes et d'entrées pour l`extérieur (xx)"
+          ],
+
+          "B3010 Couverture": [
+              "B301001 Finitions de Toitures	(m²:	Superficie de Toiture)", 
+              "B301002 Nappages de circulation et membranes de dallage	(m²:	Superficie de membrane)", 
+              "B301003 Isolation de toiture	(m²:	Superficie d`isolation)", 
+              "B301004 Solins et moulures	(m²:	Superficie de solin)", 
+              "B301005 Avant-toits et soffites	(m:	Longueure)", 
+              "B301006 Gouttières et descentes de toits	(m:	Longueure de gouttière)", 
+              "B301007 Ouvertures pour équipement mécanique et support - voir B3020	(m²:	Superficie d`ouverture)", 
+              "B301008 Membranes de couverture des marquises	(m²:	Superficie de couverture)", 
+              "B301099 Autres types de couverture	(xx)"
+          ],
+          
+          "B3020 Ouvertures de toît": [
+              "B302001 Lanterneaux	(m²:	Superficie de lanterneaux)", 
+              "B302002 Trappes d'accès	(m²:	Superficie d'ouverture de trappe)", 
+              "B302099 Autres types d'ouverture	(xx)"
+          ],
+
+          "C1010 Cloisons": [
+              "C101001 Cloisons fixes	(m²:	Superficie de cloisons fixes)", 
+              "C101002 Cloisons démontables	(m²:	Superficie de cloisons démontables)", 
+              "C101003 Cloisons mobiles	(m²:	Superficie de cloisons mobiles)", 
+              "C101004 Balustrades et écrans intérieurs	(m:	Longueur de balustrades et d'écran)", 
+              "C101005 Fenêtres intérieures et vitrage	(m²:	Superficie de fenêtres)", 
+              "C101006 Partition vitrée	(m²:	Superficie de partition)", 
+              "C101099 Autres types de partitions	(xx)"
+          ],
+
+          "C1020 Portes intérieures": [
+              "C102001 Portes intérieures - ensemble	(un:	Nombre de portes)", 
+              "C102002 Portes vitrées d'intérieur - ensemble	(un:	Nombre de portes)", 
+              "C102003 Portes avec résistance au feu - ensemble	(un:	Nombre de portes)", 
+              "C102004 Portes coulissantes	(m²:	Surface de portes)", 
+              "C102005 Porte levante / à enroulement	(un:	Nombre de portes)", 
+              "C102006 Barrières intérieures	(m²:	Surface de barrière)", 
+              "C102007 Quincaillerie spéciale pour portes intérieures	(un:	Nombre de portes)", 
+              "C102008 Dispositifs d'ouverture de porte	(un:	Nombre de dispositifs)", 
+              "C102009 Imposte et lumière latérale	(m²:	Superficie de vitrage)", 
+              "C102098 Autres types de portes spéciales pour l'intérieur	(xx)", 
+              "C102099 Autres types de portes personnelles pour l'intérieur	(xx)"
+          ],
+
+          "C1030 Accessoires intégrés": [
+              "C103001 Cubicules et partition de toilettes	(un:	Nombre de cubicules)", 
+              "C103002 Accessoires de toilette & de bain	(un:	Nombre d`accessoires)", 
+              "C103003 Tableaux d`écriture et d`affichage	(m²:	Superficie de tableau)", 
+              "C103004 Signalisations et identifications	(un:	lot)", "C103005 Casiers	(un:	Nombre de casiers)", 
+              "C103006 Comptoirs, armoires et ébénisterie	(un:	Nombre)",
+              "C103007 Cabinets d'incendie/boitier voir D4030	(un:	Faire lien avec D4030)", 
+              "C103010 Garde-robe intégré	(m:	Longueur de garde-robe)", 
+              "C103011 Pare-feu - non mécanique/électrique	(un:	Nombre d'assemblage)", 
+              "C103012 Ignifugation projeté - voir B1010 et B1020	(m²:	Superficie de contact)", 
+              "C103013 Plancher surélevé	(m²:	Superficie de plancher surélevé)", 
+              "C103014 Mobilier institutionnel	(un:	Nombre de cabinet)", 
+              "C103015 Protecteur de murs	(m²:	Superficie de contact)", 
+              "C103016 Mains courantes et balustrades	(un:	Nombre d'accessoires)", 
+              "C103017 Fonds de clouage pour accessoires intégrés	(un:	Nombre d`accessoire)", 
+              "C103018 Trappes et portes d'accès intérieur	(un:	Nombre d'accès)", 
+              "C103019 Joints de contrôle	(un:	Nombre de joints)", 
+              "C103020 Métaux ouvrés	(un:	Nombre d'éléments)", 
+              "C103099 Autres spécialités d'intérieur	(xx)"
+          ],
+
+          "C2010 Construction d`escaliers": [
+              "C201001 Construction d'escaliers intérieurs	(un:	Nombre de volée)", 
+              "C201002 Mains courantes et balustrades	(m:	Longueure de main courante)", 
+              "C201099 Autres types de construction d'escalier	(xx)"
+          ],
+
+          "C2020 Finitions d`escaliers": [
+              "C202001 Finition d'escalier intérieur	(m²:	Superficie de finition)"
+          ],
+
+          "C3010 Finitions de mur": [
+              "C301001 Finition intérieur des murs extérieurs	(m²:	Superficie de finition de mur)", 
+              "C301002 Finition de mur intérieur	(m²:	Superficie de finition de mur)", 
+              "C301003 Finition des colonnes	(m²:	Superficie de finition de mur)", 
+              "C301004 Ragréage des murs existants	(m²:	Superficie de finition de mur)", 
+              "C301099 Autres finitions de mur	(xx)"
+          ],
+
+          "C3020 Finitions de plancher": [
+              "C302001 Préparation des surfaces	(m²:	Superficie de finition)", 
+              "C302002 Planchers de céramique, pierre, terrazzo	(m²:	Superficie de finition)", 
+              "C302003 Plancher de bois	(m²:	Superficie de finition)", 
+              "C302004 Revêtements résiliants et tapis	(m²:	Superficie de couvre-sols)", 
+              "C302005 Planchers peinturés ou vernis	(m²:	Superficie de finition)", 
+              "C302006 Bases, bordures et plinthes	(m²:	Longueur de plinthes)", 
+              "C302007 Durcisseur et scellant	(m²:	Superficie de durcisseurs)", 
+              "C302099 Autres types de finitions et de finis de plancher	(xx)"
+          ],
+          
+          "C3030 Finitions de plafond": [
+              "C303001 Finition sur surface exposé - structure	(m²:	Superficie de finition de plafond)",
+              "C303002 Plafonds de plâtre	(m²:	Superficie de finition de plafond)",
+              "C303003 Plafonds de gypse	(m²:	Superficie de finition de plafond)",
+              "C303004 Plafonds suspendus	(m²:	Superficie de finition de plafond)",
+              "C303005 Peinture et vernis	(m²:	Superficie de finition de plafond)",
+              "C303006 Retombée en gypse	(m²:	Superficie de plafond suspendus)",
+              "C303099 Autres types de finition de plafond	(xx)"
+          ],
+
+          "D1010 Ascenseurs et monte-charge": [
+              "D101001 Items généraux de construction	(un:	Nombre d'item)",
+              "D101002 Ascenseurs	(un:	Nombre de paliers)",
+              "D101003 Monte-charges	(un:	Nombre de paliers)",
+              "D101004 Elévateurs - personne à mobilité réduite	(un:	Nombre de paliers)",
+              "D101099 Autres types d'ascenseurs	(xx)"
+          ],
+
+          "D1020 Escaliers mécaniques et trottoirs roulants": [
+              "D102001 Escaliers mécaniques	(m:	Longueur d'escalier)",
+              "D102002 Trottoirs roulants	(m:	Longueur de trottoir)",
+              "D102099 Autres types d'escaliers mécaniques et trottoirs roulants	(xx)"
+          ],
+
+          "D1090 Autres systèmes transporteurs": [
+              "D109001 Systèmes de tube pneumatique	(un:	Nombres de systèmes)",
+              "D109002 Convoyeurs	(un:	Nombres de systèmes)",
+              "D109003 Treuils et grues	(un:	Nombres de systèmes)",
+              "D109004 Chutes de linge et de courrier	(m:	Nombres de systèmes)",
+              "D109005 Tables tournantes	(un:	Nombres de systèmes)",
+              "D109006 Échafaudages volants	(m²:	Surface couverte)",
+              "D109007 Systèmes de transport - bagages	(un:	Nombre de systèmes)",
+              "D109099 Autres systèmes de manutension de matériel	(xx)"
+          ],
+
+          "D2010 Appareils de plomberie": [
+              "D201001 Cabinets d'aisance	un	Nombre d'appareils",
+              "D201002 Urinoirs	(un:	Nombre d'appareils)",
+              "D201003 Lavabos	(un:	Nombre d'appareils)",
+              "D201004 Éviers	(un:	Nombre d'appareils)",
+              "D201005 Douches - médical	(un:	Nombre d'appareils)",
+              "D201006 Fontaines d'eau potable et refroidisseurs	(un:	Nombre d'appareils)",
+              "D201007 Baignoires - laboratoire	(un:	Nombre d'appareils)",
+              "D201009 Bidets	(un:	Nombre d'appareils)",
+              "D201010 Appareils de laboratoire	(un:	Nombre d'appareils)",
+              "D201011 Raccordement des éviers	(un:	Nombre d'appareils)",
+              "D201012 Raccordement des bains thérapeutiques	(un:	Nombre d'appareils)",
+              "D201013 Robinets électroniques	(un:	Nombre d'appareils)",
+              "D201099 Autres appareils de plomberie - appareils d'urgence	(xx)"
+          ],
+
+          "D2020 Réseau d`eau domestique": [
+              "D202001 Tuyaux et raccords eau domestique	(un:	Nombre d'éléments)",
+              "D202002 Valves et hydrants	(un:	Nombre d'éléments)",
+              "D202003 Équipements pour l'alimentation d'eau domestique	(un:	Nombre d'éléments - échangeur, chauffe-eau)",
+              "D202004 Isolation et identification	(un:	Longueur)",
+              "D202005 Équipements spécialisés	(un:	Nombre d'équipements)",
+              "D202099 Autres types d'alimentation d'eau domestique	(xx)"
+          ],
+
+          "D2030 Réseau de drainage sanitaire": [
+              "D203001 Tuyaux et raccords sanitaires	(m:	Longueur de réseau)",
+              "D203002 Tuyaux et raccords évents	(m:	Longueur de réseau)",
+              "D203003 Drains de plancher	(un:	Nombre d'éléments)",
+              "D203004 Équipements pour le drainage sanitaire	(un:	Nombre d'éléments)",
+              "D203005 Isolation et identification	(m:	Longueur de réseau)",
+              "D203099 Autres types de drainage sanitaire	(xx)"
+          ],
+
+          "D2040 Réseau de drainage pluvial": [
+              "D204001 Tuyauterie et raccords	(m:	Longueur de réseau)",
+              "D204002 Drains de toit	(un:	Nombre de drains)",
+              "D204003 Équipements de drainage pluvial	(un:	Nombre d'équipements)",
+              "D204004 Isolation et identification	(m:	Longueur de réseau)",
+              "D204099 Autres types de drainage pluvial	(xx)"
+          ],
+          
+          "D2090 Autre système de plomberie": [
+              "D209001 Réseaux de distribution spéciale - incluant gaz médicaux	(sorties:	Nombre de sortie)",
+              "D209002 Réseau de drainage des acides	(un:	Nombre d'appareils)",
+              "D209003 Intercepteurs	(un:	Nombre d'appareils)",
+              "D209004 Équipements de piscine et tuyauterie	(m³/s:	Débit par seconde en m³)",
+              "D209005 Système d'air comprimé	(kg/m³:	Densité du gaz",
+              "D209099 Autres systèmes de plomberie	(xx)"
+          ],
+
+          "D3010 Sources d`énergie": [
+              "D301001 Système d'approvisionnement en huile de chauffage	(kW:	Puissance)",
+              "D301002 Système d'approvisionnement de gaz	(kW:	Puissance)",
+              "D301003 Système d'approvisionnement de charbon	(kW:	Puissance)",
+              "D301004 Système d'approvisionnement de vapeur	(kW:	Puissance)",
+              "D301005 Système d'approvisionnement d'eau chaude	(kW:	Puissance)",
+              "D301006 Système d'énérgie solaire	(kW:	Puissance)",
+              "D301007 Système d'énérgie éolienne	(kW:	Puissance)",
+              "D301099 Autre système d'approvisionnement en énérgie	(xx)"
+          ],
+
+          "D3020 Système de production de chaleur": [
+              "D302001 Chauffage à vapeur	(kW:	Puissance)",
+              "D302002 Chauffage à eau chaude	(kW:	Puissance)",
+              "D302003 Chaudière	(kW:	Puissance)",
+              "D302004 Unité de chauffage à essence 	(kW:	Puissance)",
+              "D302005 Équipements auxiliaires	(kW:	Puissance)",
+              "D302006 Équipements d'isolation thérmique	(m²:	Quantité)",
+              "D302099 Autres systèmes de chauffage	(xx)"
+          ],
+
+          "D3030 Système de production de froid": [
+              "D303001 Système d'eau froide	(kW:	Puissance)",
+              "D303002 Système ç expansion directe	(kW:	Puissance)",
+              "D303099 Autre système de refroidissement	(kW:	Puissance)"
+          ],
+
+          "D3040 Distribution de CVCA": [
+              "D304001 Système de distribution d'air	(L/s:	Débit)",
+              "D304002 Système de distribution de vapeur	(m:	Longueur de réseau)",
+              "D304003 Distribution d'eau chaude	(m:	Longueur de réseau)",
+              "D304004 Système de changenment d'air	(L/s:	Débit)",
+              "D304005 Système de distribution de glycol	(m:	Longueur de réseau)",
+              "D304006 Système de refroidissement	(m:	Longueur de réseau)",
+              "D304007 Système d,évacuation 	(L/s:	Débit)",
+              "D304008 Unité d'air mobile	(L/s:	Débit)",
+              "D304009 Système de ventilation avec serpentin	(L/s:	Débit)",
+              "D304099 Autre système de distribution	(xx:	Puissance)"
+          ],
+
+          "D3050 Unités autonomes ou monoblocs": [
+              "D305001 Unité de ventilation - genre unité d'hotel 	(L/s:	Débit)",
+              "D305002 Unités de chauffage	(kW:	Puissance)",
+              "D305003 Ventilateur	(L/s:	Débit)",
+              "D305004 Chauffages radiants	(kW:	Puissance)",
+              "D305005 Chauffages électriques Kw Puissance	(kW:	Puissance)",
+              "D305006 Unités autonomes - roof top (un: Nombre d'appareils)",
+              "D305099 Autres unités autonomes et monoblocs	(xx)"
+          ],
+
+          "D3060 Régulation et instrumentation": [
+              "D306001 Contrôle de CVCA	(un:	Point de régulation)",
+              "D306002 Contrôle électronique	(un:	Point de régulation)",
+              "D306003 Contrôle pneumatique	(un:	Point de régulation)",
+              "D306004 Instrument pour air comprimé	(un:	Point de régulation)",
+              "D306005 Système de purge des gaz	(un:	Point de régulation)",
+              "D306006 Systèmes de hottes et d'évacuation - Laboratoire	(Point:	Point de régulation)",
+              "D306007 Gestion & contrôle de l'énergie	(Point:	Point de régulation)",
+              "D306099 Autres contrôles et instrumentation	(xx)"
+          ],
+
+          "D3070 Essai et réglage des systèmes": [
+              "D307001 Essais, réglage et balancement des système de tuyauterie	(un:	Nombre de systèmes)",
+              "D307002 Essais, réglage et balancement des réseaux de ventilation	(un:	Nombre de systèmes)",
+              "D307003 Mise en service du système CVAC	(un:	Nombre forfaitaire)",
+              "D307099 Autres systèmes d'essais, de réglage et de balancement	(un:	Nombre de systèmes)"
+          ],
+
+          "D3090 Autres systèmes ou équipements de CVCA": [
+              "D309001 Items généraux de construction	(m²:	Nombre d'item)",
+              "D309002 Systèmes de réfrigération - pour chambre froide	(kW:	Puissance)",
+              "D309003 Contrôle spécial de l'humidité	(un:	Nombre d'appareils)",
+              "D309004 Collecteurs de poussière et de fumée	(L/s:	Débit)",
+              "D309005 Rideaux d'air	(L/s:	Débit)",
+              "D309006 Purificateurs d'air	(L/s:	Débit)",
+              "D309007 Système de ventilation de chambre de peinture	(un:	Nombre de systèmes)",
+              "D309099 Autres systèmes mécaniques spéciaux	(xx)"
+          ],
+
+          "D4010 Gicleurs": [
+              "D401001 Système de gicleurs	(un:	Nombre de têtes)",
+              "D401002 Équipements de surpression de réseau	(un:	Nombre  d'équipements)"
+          ],
+
+          "D4020 Canalisations et robinets d'incendie": [
+              "D402001 Équipements de pompage - surpression	(un:	Nombre d'équipements)",
+              "D402002 Canalisations	(m:	Longueur de réseau)",
+              "D402003 Cabinet et boyaux	(sortie:	Nombre de sorties)"
+          ],
+
+          "D4030 Accessoires de protection incendie": [
+              "D403001 Extincteurs portatifs	(un:	Nombre d'appareils)",
+              "D403002 Cabinets d'extincteurs portatifs	(un:	Nombre d'appareils)"
+          ],
+
+          "D4090 Protection incendie": [
+              "D409001 Systèmes au dioxyde de carbone	(un:	Nombre d'appareils)",
+              "D409002 Équipements de génération de mousse	(un:	Nombre d'appareils)",
+              "D409003 Systèmes à agent d'extinction propre	(un:	Nombre d'appareils)",
+              "D409004 Système de protection pour hotte	(un:	Nombre d'appareils)",
+              "D409099 Autres systèmes de protection	(un:	Nombre d'appareils)"
+          ],
+
+          "D5010 Service et distribution électrique": [
+              "D501001 Transformateurs principaux	(kVA:	Capacité des transformateurs)",
+              "D501002 Transformateurs secondaires	(kVA:	Capacité des transformateurs)",
+              "D501003 Panneaux de distribution	(kVA:	Capacité des panneaux)",
+              "D501004 Transformateurs de distribution principa	(kVA:	Capacité des transformateurs)",
+              "D501005 Panneaux - secondaire-distribution	(kVA:	Capacité des transformateurs)",
+              "D501006 Coupe-circuit	(kVA:	Capacité des transformateurs)",
+              "D501007 Contrôles centraux des moteurs	(kVA:	Capacité des transformateurs)",
+              "D501099 Autres services et distributions	(xx)"
+          ],
+          
+          "D5020 Éclairage et distribution secondaire": [
+              "D502001 Cablage et dispositif de filerie	(sortie:	Nombre de sorties)",
+              "D502002 Appareils d'éclairage	(app:	Nombre d'appareils)",
+              "D502003 Éclairage extérieur - fixé à l'immeuble	(app:	Nombre d'appareils)",
+              "D502099 Autres appareils d'éclairage	(xx)"
+          ],
+
+          "D5030 Communication et sécurité": [
+              "D503001 Système de détection et d'alarme incendie	(app:	Nombre d'appareils)",
+              "D503002 Système de télécommunication - téléphonie	(sortie:	Nombre de sorties)",
+              "D503003 Système de télécommunication - infirmerie/hopital	(sortie:	Nombre se sorties)",
+              "D503004 Système d'appel publique d'immeuble et systèmes musicaux	(sortie:	Nombre de sorties)",
+              "D503005 Système d'intercommunication	(sortie:	Nombre de sorties)",
+              "D503006 Système d'horlogerie et de programmation	(système:	Nombre de systèmes)",
+              "D503007 Système de télévision et cablodistribution	(sortie:	Nombre de sorties)",
+              "D503008 Système de sécurité et d'intrusion	(point:	Nombre se points)",
+              "D503009 Réseaux de cablage - structure	(sortie:	Nombre de sorties)",
+              "D503099 Autres systèmes de sécurité et communication	(xx)"
+          ],
+
+          "D5090 Autres systèmes électriques": [
+              "D509001 Items généraux de contruction	(un: Nombre d'items)",
+              "D509002 Éclairage d'urgence	(sortie:	Nombre de sorties)",
+              "D509003 Mise à la terre	(système:	Nombre de systèmes)",
+              "D509004 Systèmes de paratonnerre	(système:	Nombre de systèmes)",
+              "D509005 Ups et accessoires	(kVA:	capacité)",
+              "D509006 Système de gestion d'énergie	(système:	Nombre de systèmes)",
+              "D509007 Génératrices et accessoires	(un:	Nombre de systèmes)",
+              "D509099 Autres systèmes d'électricité	(xx:	Nombre d'équipements)"
+          ],
+
+          "E1010 Équipement commercial": [
+              "E101001 Équipements de vestiaire	(un;	Nombre d'équipements)",
+              "E101002 Équipements d'inscription	(un:	Nombre d'équipements)",
+              "E101003 Équipements de vente	(un:	Nombre d'équipements)",
+              "E101004 Équipements commerciale de buandrie et nettoyage à sec	(un:	Nombre d'équipements)",
+              "E101005 Équipements de sécurité et chambre forte	(un:	Nombre d'équipements)",
+              "E101006 Équipements de guichet et de service	(un:	Nombre d'équipements)",
+              "E101007 Équipements de commerce	(un:	Nombre d'équipements)",
+              "E101008 Équipements de bureau	(un:	Nombre d'équipements)",
+              "E101099 Autres équipements commerciaux	(un:	Nombre d'équipements)"
+          ],
+
+          "E1020 Équipement institutionnel": [
+              "E102001 Divers équipements communs fixes ou mobiles	(un:	Nombre d'équipements)",
+              "E102002 Équipements médicaux	(un:	Nombre d'équipements)",
+              "E102003 Équipements de laboratoire	(un:	Nombre d'équipements)",
+              "E102004 Équipements mortuaires	(un:	Nombre d'équipements)",
+              "E102005 Équipements de scène et de théâtre	(un:	Nombre d'équipements)",
+              "E102006 Équipements de bibliothèque	(un:	Nombre d'équipements)",
+              "E102007 Équipements liturgiques	(un:	Nombre d'équipements)",
+              "E102008 Équipements de musiques	(un:	Nombre d'équipements)",
+              "E102009 Équipements audiovisuels	(un:	Nombre d'équipements)",
+              "E102010 Équipements de détention	(un:	Nombre d'équipements)",
+              "E102011 Équipements de dentisterie	(un:	Nombre d'équipements)",
+              "E102099 Autres équipements institutionnels	(un:	Nombre d'équipements)"
+          ],
+
+          "E1030 Équipement pour véhicules": [
+              "E103001 Équipements de contrôle de parc de stationnement	(un:	Nombre d'équipements)",
+              "E103002 Équipements de quai de chargement	(un:	Nombre d'équipements)",
+              "E103003 Équipements d'entrepôt	(un:	Nombre d'équipements)",
+              "E103099 Autres équipements pour véhicules	(un:	Nombre d'équipements)"
+          ],
+
+          "E1090 Autres équipements": [
+              "E109001 Équipements d'entretien	(m²: Superficie)",
+              "E109002 Équipements de service alimentaire	(un:	capacité en sièges)",
+              "E109003 Équipements de mantention des déchets solides	(un:	Nombre d'équipements)",
+              "E109004 Équipements domestiques	(un:	Nombre d'équipements)",
+              "E109005 Unités combinées de cuisine	(un:	Nombre d'équipements)",
+              "E109006 Équipements de chambre noir	(un:	Nombre d'équipements)",
+              "E109007 Équipements athlétiques, de récréation et thérapeutiques	(un:	Nombre d'équipements)",
+              "E109008 Équipements de planétarium	(un:	Nombre d'équipements)",
+              "E109009 Équipements d'observatoire	(un:	Nombre d'équipements)",
+              "E109010 Équipements d'agriculture	(un:	Nombre d'équipements)",
+              "E109099 Autres équipements spécialisés	(xx:	Nombre d'équipements)"
+          ],
+
+          "E2010 Ameublement et décorations fixes": [
+              "E201001 Oeuvres d'art intégrés	(un:	Nombre d'œuvres d'art)",
+              "E201002 Habillage de fenêtres	(m²:	Superficie des fenêtres)",
+              "E201003 Sièges fixes	(un:	Nombre de sièges)",
+              "E201004 Grilles gratte-pieds et tapis-brosse	(un:	Nombre de grilles)",
+              "E201005 Plantation intérieure intégrée	(un:	Nombre de plantes)",
+              "E201099 Autres ameublements d'intérieur intégrés	(xx)"
+          ],
+
+          "E2020 Ameublement et décorations mobiles": [
+              "E202001 Oeuvres d'art non intégrées	(un:	Nombre d'œuvres d'art)",
+              "E202002 Mobilier modulaire préfabriqué	(m²:	Superficie du mobilier)",
+              "E202003 Présentoir	(un:	Nombre de mobiliers)",
+              "E202004 Recouvrements de sol amovibles	(m²:	Superficie du recouvrement)",
+              "E202005 Sièges multiples amovibles	(un:	Nombre de sièges0",
+              "E202006 Plantation intérieure non intégrée	(un:	Nombre de plantes)",
+              "E202099 Autres ameublements d'intérieur non intégrés	(xx)"
+          ],
+
+          "F1010 Structure spéciale": [
+              "F101001 Structure métallique	(m²:	Superficie de construction)",
+              "F101002 Utilité à l'extérieur du bâtiment	(m²:	Superficie de construction)",
+              "F101003 Structure gonflable	(m²:	Superficie de constructions spéciales)",
+              "F101099 Autres construction spéciales	(xx)"
+          ],
+
+          "F1020 Sous-ensembles intégrés": [
+              "F102001 Pièces à usage spéciale	(m²:	Superficie d`une pièce)",
+              "F102002 Sous-ensembles intégrés	(m²:	Superficie d`un sous-ensemble)",
+              "F102099 Autres installations intégrées	(xx)"
+          ],
+          
+          "F1030 Système spécial de construction": [
+              "F103001 Chambres fortes	(m²:	Superficie",
+              "F103002 Construction contre le bruit, les vibrations et les séismes	(m²:	Superficie d`un système)",
+              "F103003 Protection contre les radiations	(m²:	Superficie de protection)",
+              "F103004 Systèmes spéciaux de sécurité	(m²:	Superficie d`un système)",
+              "F103005 Panneaux acoustiques appliqués sur le mur	(m²:	Superficie de finition d`un mur)",
+              "F103099 Autres systèmes spéciaux de construction	(xx:	Nombre de systèmes)"
+          ],
+
+          "F1040 Installation spéciale": [
+              "F104001 Installations aquatiques	(m²:	Superficie d'installations aquatiques)",
+              "F104002 Réservoirs de liquide et de gaz	(m²:	Superficie des réservoirs)",
+              "F104003 Chenils et abris pour animaux	(m²:	Superficie)",
+              "F104004 Incinérateurs construit sur place	(m²:	Nombre d'incinérateur)",
+              "F104005 Patinoires	(m²:	Superficie de patinoires)",
+              "F104099 Autres installations spéciales	(xx)"
+          ],
+
+          "F1050 Instrumentation et régulations spéciales": [
+              "F105001 Appareils enregistreurs	(un:	Nombre de systèmes)",
+              "F105099 Autres dispositifs spéciaux d'instrumentation	(xx)"
+          ],
+
+          "F2010 Démantèlement d`éléments de bâtiment": [
+              "F201001 Démolition fondation et superstructure	(lot:	Lots de démolition)",
+              "F201002 Démolition de l'enveloppe extérieur	(lot:	Lots de démolition)",
+              "F201003 Démolition de la toiture	(lot:	Lots de démolition)",
+              "F201004 Démolition des construction intérieure et des finis	(lot:	Lots de démolition)",
+              "F201005 Démolition des systèmes de transport	(slot:	Lots de démolition)",
+              "F201006 Démolition des systèmes mécaniques	(lot:	Lots de démolition)",
+              "F201007 Démolition des systèmes électrique	(lot:	Lots de démolition)",
+              "F201008 Démolition des équipements et fournitures	(lot:	Lots de démolition)",
+              "F201099 Autres démolitions non-dangeureuses	(xx)"
+          ],
+
+          "F2020 Élimination de produits dangereux": [
+              "F202001 Démolition fondation et superstructure	(lot:	Lots d'enlèvement)",
+              "F202002 Démolition de l'enveloppe extérieure	(lot:	Lots d'enlèvement)",
+              "F202003 Démolition de la toiture	(lot:	Lots d'enlèvement)",
+              "F202004 Démolition des construction intérieure et des finis	(lot:	Lots d'enlèvement)",
+              "F202005 Démolition des systèmes de transport	(lot:	Lots d'enlèvement)",
+              "F202006 Démolition des systèmes mécaniques	(lot:	Lots de d'enlèvement)",
+              "F202007 Démolition des systèmes électriques	(lot:	Lots de d'enlèvement)",
+              "F202008 Démolition des équipements et fournitures	(lot:	Lots de d'enlèvement)",
+              "F202099 Autres démolitions non-dangeureuses	(xx)"
+          ],
+
+          "G1010 Déblaiement d`emplacement": [
+              "G101001 Déboisement et coupe	(m²:	Superficie à déboiser)",
+              "G101002 Déblaiement de surface	(m²:	Volume de déblaiement)",
+              "G101003 Disposition des souches et mise en copeaux	(m²:	Nombre de souches)",
+              "G101099 Autres types de nettoyage de terrain	(xx)"
+          ],
+
+          "G1020 Déplacements et démolition sur l`emplacement": [
+              "G102001 Démolition de bâtiment	(m³:	Volume de démolition)",
+              "G102002 Démolition d'éléments d'aménagement	(m³:	Volume intérieur de démolition)",
+              "G102003 Démolition d'éléments en sous-sol	(m²:	Superficie de démolition)",
+              "G102004 Déplacement de bâtiment	(m²:	Superficie de bâtiment à être déplacé)",
+              "G102005 Relocalisation de services	(m:	Longueurs à relocaliser)",
+              "G102006 Relocalisation de clôture	(m:	Longueurs à relocaliser)",
+              "G102007 Nettoyage du site	(m²:	Superficie de nettoyage)",
+              "G102099 Autres démolitions ou relocalisation de site	(xx)"
+          ],
+
+          "G1030 Terrassement d`emplacement": [
+              "G103001 Nivellement	(m²:	Superficie de nivellement)",
+              "G103002 Excavation	(m³: 	Volume d'excavation)",
+              "G103003 Excavation de rock	(m³:	Volume d'excavation)",
+              "G103004 Remblayage	(m³:	Volume de remblayage)",
+              "G103005 Compaction du sol non remanié	(m³:	Volume de compaction)",
+              "G103006 Stabilisation du sol	(m³:	Volume de sol à stabiliser)",
+              "G103007 Stabilisation des pentes	(m²:	Superficie à stabiliser)",
+              "G103008 Traitement du sol	(m²:	Superficie à traiter)",
+              "G103009 Travaux en sous-œuvre	(m:	Longueur)",
+              "G103010 Assèchement de l'emplacement	(m²:	Superficie du sol à assècher)",
+              "G103011 Contrôle de l'érosion et sédiments	(m²:	Superficie de travaux)",
+              "G103099 Autres types de travaux de terrassement	(xx)"
+          ],
+
+          "G1040 Décontamination d`emplacement": [
+              "G104001 Enlèvement de sol contaminé	(m³:	Volume de décontamination)",
+              "G104002 Remblai	(m³:	Volume de remblayage)",
+              "G104003 Restauration et traitement au sol	(m³:	Volume de décontamination)",
+              "G104004 Encapsulage	(m³:	Volume de sol à encapsule)",
+              "G104099 Autres décontaminations de l'emplacement	(xx)"
+          ],
+
+          "G2010 Chaussée": [
+              "G201001 Infrastructures de chaussée	(m²:	Superficie de chaussée)",
+              "G201002 Bordures, caniveaux et drains - en surface	(m:	Longueur requise - canalisation de surface)",
+              "G201003 Pavage et revêtement	(sm²:	Superficie de pavage)",
+              "G201004 Lignes de peinture et marquages	(m²:	Superficie de marquage)",
+              "G201005 Glissières de sécurité et barrières	(m:	Longueur de glissières)",
+              "G201006 Resurfaçage	(m²:	Superficie de resurfaçage)",
+              "G201007 Signalisation	(un: 	Nombre de signalisations)",
+              "G201008 Ponts et ponceaux	(m²:	Superficie de ponts)",
+              "G201099 Autres travaux routiers	(xx)"
+          ],
+
+          "G2020 Aire de stationnement": [
+              "G202001 Infrastructures de stationnement	(m²:	Superficie de stationnement)",
+              "G202002 Bordures, caniveaux et drains	(m:	Longueur requise)",
+              "G202003 Pavage et revêtement	(m²:	Superficie de pavage)",
+              "G202004 Lignes de peinture et marquage	(m²:	Superficie de marquage)",
+              "G202005 Glissières de sécurité et barrières	(m:	Longueur de glissières)",
+              "G202006 Resurfaçage	(m²:	Superficie de resurfaçage)",
+              "G202007 Équipements et structures divers	(un: 	Nombre requis)",
+              "G202008 Signalisation	(un: 	Nombre de signalisations)",
+              "G202009 Ponts et ponceaux	(m²:	Superficie de ponts)",
+              "G202099 Autres aires de stationnement	(xx)"
+          ],
+
+          "G2030 Surface piétonnière": [
+              "G203001 Infrastructures de surface piétonnière	(m²:	Superficie de surface piétonnière)",
+              "G203002 Bordures, caniveaux et drains	(m:	Longueur requise)",
+              "G203003 Pavage et revêtement	(m²:	Superficie de pavage)",
+              "G203004 Glissières de sécurité et barrières	(m:	Longueur de glissières)",
+              "G203005 Resurfaçage	(m²:	Superficie de resurfaçage)",
+              "G203006 Escaliers extérieurs et rampes	(m:	Longueur de rampe)",
+              "G203007 Ponts et ponceaux piétonniers	(m²:	Superficie de ponts)",
+              "G203099 Autres (marches, terrasses et allées	(xx)"
+          ],
+
+          "G2040 Aménagement du terrain": [
+              "G204001 Clôtures et barrières	(m:	Longueur de clôtures)",
+              "G204002 Murs de soutènement	(m²:	Superficie de murs)",
+              "G204003 Ameublements extérieurs	(un:	Nombre d'éléments)",
+              "G204004 Bâtiment pour la sécurit	(un:	Nombre de bâtiments)",
+              "G204005 Signalisation	(un:	Nombre de signalisations)",
+              "G204006 Fontaines, piscines et cours d'eau	(un:	Nombre d'éléments)",
+              "G204007 Terrains de sport	(un:	Nombre de terrains)",
+              "G204008 Terrasses et murs d'enceinte	(m²:	Superficie de terrasses)",
+              "G204009 Mâts	(un:	Nombre de mâts)",
+              "G204099 Autres améliorations au terrain	(xx)"
+          ],
+
+          "G2050 Aménagement paysager": [
+              "G205001 Nivellement de finition et préparation du sol	(m²:	Superficie de nivellement)",
+              "G205002 Mesures de contrôle de l'érosion	(m²:	Superficie au sol)",
+              "G205003 Sol de surface et lits de plantation	(m²:	Superficie de plantation)",
+              "G205004 Ensemencement et gazonnement	(m²:	Superficie de gazonnement)",
+              "G205005 Plantations	(un:	Nombre de plantation)",
+              "G205006 Arbres, arbustes et couvre-sol	(un:	Nombre d'arbres)",
+              "G205007 Systèmes d'irriguation	(m²:	Superficie du système d'irrigation)",
+              "G205099 Autres aménagements paysager	(xx)"
+          ],
+
+          "G3010 Alimentation en eau sur l`emplacement": [
+              "G301001 Réseau de distribution d'eau potable	(m:	Longueur du réseau)",
+              "G301002 Réseau de distribution d'eau non potable	(m:	Longueur du réseau)",
+              "G301003 Réservoir d'eau potable	(litres:	Capacité)",
+              "G301004 Réservoir d'eau non potable	(litres:	Capacité)",
+              "G301005 Système de puits	(un:	Système)",
+              "G301006 Réseau de protection incendie	(m:	Longueur du réseau)",
+              "G301007 Réservoir pour protection incendie	(litres:	Capacité)",
+              "G301008 Stations de pompage	(L/s:	Capacité de la station)",
+              "G301009 Stations compactes de traitement des eaux	(L/s:	Capacité de la station)",
+              "G301099 Autres alimentations en eau	(xx)"
+          ],
+
+          "G3020 Égout sanitaire": [
+              "G302001 Canalisations	(m:	Longueur du réseau)",
+              "G302002 Trous d'homme - regards	(un: 	Nombre de trous d'hommes)",
+              "G302003 Systèmes d'évacuation des eaux septiques	L/s:	Capacité du réseau",
+              "G302004 Stations de relèvement et de pompage	L/s:	Capacité de la station",
+              "G302005 Stations compactes de traitement des eaux usées	(L/s:	Capacité de la station)",
+              "G302006 Réservoir d'eau usée - fosses septiques	(Litres:	Capacité)",
+              "G302007 Drainage et champs d'épuration	(m²:	Superficie de travaux)",
+              "G302099 Autres systèmes d'égout sanitaires	(xx)"
+          ],
+
+          "G3030 Égout pluvial": [
+              "G303001 Canalisations	(m:	Longueur du réseau)",
+              "G303002 Trous d'homme et regards puisards	(un: 	Nombre de trous d'hommes)",
+              "G303003 Murs de têtes et bassins de décantations	(un: Nombre)",
+              "G303004 Stations de relèvement	(L/s:	Capacité de la station)",
+              "G303005 Bassins de captation et de rétension	(litres:	Capacité)",
+              "G303006 Fossés et caniveaux	(m:	Longueur du fossé)",
+              "G303007 Contrôle et mesure de l'érosion et des sédiments	(m²:	Superficie de travaux)",
+              "G303008 Gestion des d'égouts pluviaux - réutilisation de l'eau	(systèmes:	Capacité de réutilisation et traitement)s",
+              "G303099 Autres systèmes	xx"
+          ],
+
+          "G3040 Distribution de chauffage": [
+              "G304001 Alimentation en vapeur	(m:	Longueur du réseau)",
+              "G304002 Système de retour de condensat	(m:	Longueur du réseau)",
+              "G304003 Alimentation à l'eau chaude (m	Longueur du réseau)",
+              "G304004 Stations de pompage	(un:	Nombre de stations)",
+              "G304005 Boîtes de valves et trous d'homme en béton armé	(un:	Nombre de trous d'hommes)",
+              "G304099 Autres types de distribution de chaleur	(xx)"
+          ],
+
+          "G3050 Distribution de refroidissement": [
+              "G305001 Systèmes de refroidissement	(m:	Longueur du réseau)",
+              "G305002 Puits de refroidissement	(un: 	Nombre de puits)",
+              "G305003 Stations de pompage	(L/s:	Capacité de la station)",
+              "G305004 Tours de refroidissement sur l'emplacement	(kVA:	Capacité totale)",
+              "G305005 Étançonnement de tranchées pour refroidissement	(m:	Longueur du réseau)",
+              "G305099 Autres alimentations de refroidissement	(xx)"
+          ],
+
+          "G3060 Distribution de combustible": [
+              "G306001 Canalisation de carburant liquide	(m:	Longueur du réseau)",
+              "G306002 Équipements pour le carburant liquide	(litres:	Capacité du système)s",
+              "G306003 Réservoirs d'entreposage de carburant liquide	(litres:	Capacité du système - ex: génératrice)",
+              "G306004 Étançonnement de tranchées pour carburant liquide	(m:	Longueur du réseau)s",
+              "G306005 Canalisation de distribution de gaz - naturel ou propane	(m:	Longueur du réseau)",
+              "G306006 Réservoirs d'entreposage de gaz	(litres:	Capacité)",
+              "G306007 Étançonnement de tranchées pour gaz	(m:	Longueur du réseau)",
+              "G306098 Autres distributions de gaz	(xx)",
+              "G306099 Autres distributions de carburant liquides	(xx)"
+          ],
+
+          "G3090 Autres services de mécanique sur l`emplacement": [
+              "G309001 Systèmes de rejets industriels	(m:	Longueur du réseau)",
+              "G309002 Systèmes de distribution de lubrifiants (L/s:	Capacité du système)",
+              "G309003 Regards et puisards pour déchet industriels	(un: 	Nombre)",
+              "G309004 Stations de relèvement de déchets industriels	(L/s:	Capacité du système)",
+              "G309005 Réservoir et séparateur de déchets indutriels	(un:	Longueur du réseau)",
+              "G309006 Étançonnement de tranchées pour réseaux de déchets industriels	(m:	Longueur du réseau)",
+              "G309007 Géothermie	(kVA:	Capacité totale)",
+              "G309099 Autres déchets industriels	(xx)"
+          ],
+
+          "G4010 Distribution d`électricité sur l`emplacement": [
+              "G401001 Sous station et travaux connexes	(kVA:	Capacité totale)",
+              "G401002 Distributions électriques aériennes	(m:	Longueur du réseau)",
+              "G401003 Distributions électriques souterraines	(m:	Longueur du réseau)",
+              "G401004 Transformateurs et travaux connexes	(kVA:	Capacité totale)",
+              "G401005 Interrupteur et contrôle	(un:	Nombre)",
+              "G401006 Conducteur électrique de haute tension	(m:	Longueur du réseau)",
+              "G401007 Tours, poteaux électriques et isolateur	(un:	Nombre)",
+              "G401008 Puits d'accès pour distribution électrique	(un:	Nombre)",
+              "G401009 Système de mise à la terre	(un: 	Nombre)",
+              "G401010 Compteurs	(un:	Nombre)",
+              "G401099 Autres réseaux d'alimentation et de transmission électrique	(xx)"
+          ],
+
+          "G4020 Éclairage d`emplacement": [
+              "G402001 Appareils et Transformateurs	(kVA:	Capacité totale)",
+              "G402002 Lampadaires, supports de luminaire et isolateur	(un:	Nombre)",
+              "G402003 Conduits de câblage et caniveaux	(m:	Longueur du réseau)",
+              "G402004 Contrôles de l'éclairage extérieur	(un:	Nombre)s",
+              "G402005 Puits d'accès pour éclairage	(un:	Nombre)",
+              "G402006 Systèmes de mise à la terre	(un:	Nombre)",
+              "G402007 Systèmes d'éclairage de sécurité	(un:	Nombre)",
+              "G402099 Autres éclairages extérieurs	(xx)"
+          ],
+
+          "G4030 Communication et sécurité sur l`emplacement": [
+              "G403001 Systèmes de communication pour l'emplacement	(m:	Longueur du réseau)",
+              "G403002 Systèmes d'alarmes et de sécurité pour l'emplacement	(m:	Longueur du réseau)",
+              "G403003 Système de sonorisation	(m:	Longueur du réseau)",
+              "G403004 Systèmes d'alarmes incendie	(m:	Longueur du réseau)",
+              "G403005 Système de câble TV	(m:	Longueur du réseau)",
+              "G403006 Puits d'accès pour communication et réseaux de sécurité	(un:	Nombre)",
+              "G403007 Poteaux pour communication et réseaux de sécurité	(un:	Nombre)",
+              "G403008 Moniteurs et caméras de surveillance	(un:	Nombre)",
+              "G403009 Système de mise à la terre	(un:	Nombre)",
+              "G403098 Autres types d'alarme et de communication	(xx)",
+              "G403099 Autres systèmes de sécurité	(xx)"
+          ],
+
+          "G4090 Autres services d`électricité sur l`emplacement": [
+              "G409001 Protection cathodique - Anode	(un:	Nombre)",
+              "G409002 Génératrice de réserve (kVA:	Capacité totale)",
+              "G409002 Protection cathodique - Conduits	(m:	Longueur du réseau)",
+              "G409004 Prises électriques	(un:	Nombre)",
+              "G409003 Autres protection cathodique	(xx)"
+          ],
+
+          "G9010 Tunnels piétons et de services sur l`emplacement": [
+              "G901001 Tunnels de service	(m:	Longueur du tunnel)",
+              "G901002 Caissons de tranchées pour piétons (m:	Longueur du caisson)",
+              "G901003 Tunnels piétonnier	(m:	Longueur du tunnel)"
+          ],
+
+          "G9090 Autres systèmes sur l`emplacement": [
+              "G909001 Système de fonte de neige	(un:	Système)",
+              "G909002 Ponts	(m²:	Surface de pont)",
+              "G909003 Réseaux ferrovière	(m:	Longueur du réseau)",
+              "G909099 Autres systèmes spéciales	(xx)"
+          ]
+          
+        }
+      };
+
+
+      // Listen for changes to the Uniformat I selection
+        document.getElementById("uniformatForm").addEventListener("change", function(e) {
+          if (e.target.name === "uniformatI") {
+            var uniformatII = document.getElementById("uniformatII");
+            var selectedOption = uniformatII.value; // Store the selected option
+
+            uniformatII.innerHTML = ""; // Clear existing options
+
+
+      // Add the 'SELECT' option
+        var selectOption = document.createElement("option");
+        selectOption.value = "";
+        selectOption.disabled = true;
+        selectOption.selected = true;
+        selectOption.classList.add("lang");
+        selectOption.setAttribute("key", "select");
+        selectOption.textContent = lang[langKey]['select'];
+        uniformatII.add(selectOption);
+
+
+        // Add the corresponding Uniformat II options
+          options[langKey][e.target.value].forEach(function(option) {
+            var opt = document.createElement("option");
+            opt.value = option;
+            opt.text = option;
+            uniformatII.add(opt);
+          });
+
+          uniformatII.value = selectedOption; // Reselect the option
+        }
+      });
+
+      // Listen for changes to the Uniformat II selection
+  document.getElementById("uniformatForm").addEventListener("change", function(e) {
+    if (e.target.name === "uniformatII") {
+      var uniformatIIb = document.getElementById("uniformatIIb");
+      var selectedOption2 = uniformatIIb.value; // Store the selected option
+
+      uniformatIIb.innerHTML = ""; // Clear existing options
+
+      // Add the 'SELECT' option
+      var selectOption2 = document.createElement("option");
+      selectOption2.value = "";
+      selectOption2.disabled = true;
+      selectOption2.selected = true;
+      selectOption2.classList.add("lang");
+      selectOption2.setAttribute("key", "select2");
+      selectOption2.textContent = lang[langKey]['select2'];
+      uniformatIIb.add(selectOption2);
+
+      // Add the corresponding Uniformat IIb options
+      options2[langKey][e.target.value].forEach(function(option2) {
+        var opt2 = document.createElement("option");
+        opt2.value = option2;
+        opt2.text = option2;
+        uniformatIIb.add(opt2);
+      });
+
+      uniformatIIb.value = selectedOption2; // Reselect the option
+    }
+  });
+
+  // Listen for changes to the Uniformat IIb selection
+  document.getElementById("uniformatForm").addEventListener("change", function(e) {
+    if (e.target.name === "uniformatIIb") {
+      var uniformatIIc = document.getElementById("uniformatIIc");
+      var selectedOption3 = uniformatIIc.value; // Store the selected option
+
+      uniformatIIc.innerHTML = ""; // Clear existing options
+
+      // Add the 'SELECT' option
+      var selectOption3 = document.createElement("option");
+      selectOption3.value = "";
+      selectOption3.disabled = true;
+      selectOption3.selected = true;
+      selectOption3.classList.add("lang");
+      selectOption3.setAttribute("key", "select3");
+      selectOption3.textContent = lang[langKey]['select3'];
+      uniformatIIc.add(selectOption3);
+
+      // Add the corresponding Uniformat IIc options
+      options3[langKey][e.target.value].forEach(function(option3) {
+        var opt3 = document.createElement("option");
+        opt3.value = option3;
+        opt3.text = option3;
+        uniformatIIc.add(opt3);
+      });
+
+      uniformatIIc.value = selectedOption3; // Reselect the option
+    }
+  });
+
+
+
+      // Listen for form submission
+      document.getElementById("uniformatForm").addEventListener("submit", function(e) {
+        e.preventDefault(); // Prevent form from being submitted normally
+
+        // Get the selected Uniformat I and II options
+        var uniformatI = document.querySelector('input[name="uniformatI"]:checked').value;
+        var uniformatIButton = document.querySelector('input[name="uniformatI"]:checked');
+
+        var uniformatIText = document.querySelector(`label[for="${uniformatIButton.id}"]`).textContent;
+        var uniformatII = document.getElementById("uniformatII").value;
+
+        var uniformatIIb = document.getElementById("uniformatIIb").value;
+
+        var uniformatIIc = document.getElementById("uniformatIIc").value;
+
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Set the result to a variable
+        var result = uniformatIText + " / " + uniformatII + " / " + uniformatIIb + " / " + uniformatIIc;
+         // Display the result/variable
+        document.getElementById("result").textContent = result;
+        document.getElementById("result").style.visibility = "visible";
+        document.getElementById("result-title").style.visibility = "visible";
+
+        addData();
+        // location.reload();
+
+      });
+
+       //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+      // Show the select box when a radio button is clicked
+      document.querySelector('.form-radios').addEventListener('change', function() {
+        document.getElementById('selectBox1').style.visibility = 'visible';
+      });
+
+       // Show the 2nd select box when a Uniformat II option is selected
+  document.getElementById('uniformatII').addEventListener('change', function() {
+    document.getElementById('selectBox2').style.visibility = 'visible';
+  });
+
+  // Show the 3rd select box when a Uniformat IIb option is selected
+  document.getElementById('uniformatIIb').addEventListener('change', function() {
+    document.getElementById('selectBox3').style.visibility = 'visible';
+  });
+
+      // Language translation fpr Titles and Levels
+      var lang = {
+  en: {
+    'uniformat': 'Uniformat II: Naming Convention',
+    'building': 'Building Element Name Generator',
+    'level1': 'LEVEL 1',
+    'major': 'Major Group Elements',
+    'level2': 'LEVEL 2',
+    'elements': 'Group Elements',
+    'generate': 'GENERATE',
+    'select': 'SELECT',
+    'A-label': 'A: SUBSTRUCTURE',
+    'B-label': 'B: SHELL',
+    'C-label': 'C: INTERIORS',
+    'D-label': 'D: SERVICES',
+    'E-label': 'E: EQUIPMENT AND FURNISHINGS',
+    'F-label': 'F: SPECIALS CONSTRUCTION AND DEMOLITION',
+    'G-label': 'G: BUILDING SITEWORK',
+    'level3': 'LEVEL 3',
+    'individual': 'Individual Elements',
+    'level4': 'LEVEL 4',
+    'sub-elements': 'Sub Elements'
+  },
+  fr: {
+    'uniformat': 'Uniformat II: Convention de nomenclature',
+    'building': 'Générateur des composantes du bâtiment',
+    'level1': 'NIVEAU 1',
+    'major': 'Groupe d\'éléments majeurs',
+    'level2': 'NIVEAU 2',
+    'elements': 'Groupe d\'éléments',
+    'generate': 'GÉNÉRER',
+    'select': 'SÉLECTIONNER',
+    'A-label': 'A: INFRASTRUCTURE',
+    'B-label': 'B: SUPERSTRUCTURE ET ENVELOPPE',
+    'C-label': 'C: AMÉNAGEMENT INTÉRIEUR',
+    'D-label': 'D: SERVICES',
+    'E-label': 'E: ÉQUIPEMENT ET AMEUBLEMENT',
+    'F-label': 'F: CONSTRUCTION SPÉCIALE ET DÉMOLITION',
+    'G-label': 'G: AMÉNAGEMENT D`EMPLACEMENT',
+    'level3': 'NIVEAU 3',
+    'individual': 'Élements individuels',
+    'level4': 'NIVEAU 4',
+    'sub-elements': 'Sous-Éléments'
+  }
+};
+
+      var langKey = 'fr'; // Default language
+
+      $('.language-selector button').click(function() {
+  langKey = $(this).attr('id');
+  $('.lang').each(function(index, element) {
+
+    if ($(this).is('input[type="submit"]')) {
+      $(this).prop('value', lang[langKey][$(this).attr('key')]);
+
+    } else {
+      $(this).text(lang[langKey][$(this).attr('key')]);
+    }
+  });
+
+  // Check if a radio button is selected
+  var selectedRadio = document.querySelector('input[name="uniformatI"]:checked');
+  if (selectedRadio) {
+    // Store the selected Uniformat II option
+    var uniformatII = document.getElementById("uniformatII");
+    var selectedOption = uniformatII.value;
+
+    uniformatII.innerHTML = ""; // Clear existing options
+
+    // Add the 'SELECT' option
+    var selectOption = document.createElement("option");
+    selectOption.value = "";
+    selectOption.disabled = true;
+    selectOption.selected = true;
+    selectOption.classList.add("lang");
+    selectOption.setAttribute("key", "select");
+    selectOption.textContent = lang[langKey]['select'];
+    uniformatII.add(selectOption);
+
+    // Add the corresponding Uniformat II options
+    options[langKey][selectedRadio.value].forEach(function(option) {
+      var opt = document.createElement("option");
+      opt.value = option;
+      opt.text = option;
+      uniformatII.add(opt);
+    });
+
+    // Reselect the Uniformat II option
+    uniformatII.value = selectedOption;
+  }
+});
+
+      // Update the 'SELECT' option text when the page loads
+      $(document).ready(function() {
+        $('option[value=""]').text(lang[langKey]['select']);
+      });
+
+    </script>
+  </body>
+</html>
